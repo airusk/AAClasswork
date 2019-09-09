@@ -1,4 +1,4 @@
-require_relative "./skeleton/lib/00_tree_node.rb"
+require_relative "./poly_tree_node/lib/00_tree_node.rb"
 
 class KnightPathFinder
   attr_accessor :root_node
