@@ -29,19 +29,38 @@
 #   subs
 # end
 
-def first_anagram?(str1, str2)
-  length = str1.length * str1.length
-  subs = []
-  
-  length.times do 
 
-    shuff = str1.split("")shuffle
-    subs << shuff.join("") if !subs.include?(shuff)
-  end
+#WHAT KIM AND I FINISHED IN CLASS
+
+# def first_anagram?(str1, str2)
+#   length = str1.length * str1.length
+#   subs = []
   
-  subs
+#   length.times do 
+
+#     shuff = str1.split("")shuffle
+#     subs << shuff.join("") if !subs.include?(shuff)
+#   end
+  
+#   subs
+# end
+
+
+# p first_anagram?("gizmo", "sally")    #=> false
+# p first_anagram?("elvis", "lives")    #=> true
+
+#ME WORKING SOLO FOR PRACTICE BELOW
+
+def b_anagram?(str1,str2)
+  counter = Hash.new(0)
+  str1.each_char do |char|
+    counter[char] += 1
+  end
+  str2.each_char do |char|
+    counter[char] -= 1
+  end
+  counter.values.all?{|val| val == 0}
 end
 
-
-p first_anagram?("gizmo", "sally")    #=> false
-p first_anagram?("elvis", "lives")    #=> true
+p b_anagram?("gizmo", "sally")
+p b_anagram?("elvis", "lives" )
