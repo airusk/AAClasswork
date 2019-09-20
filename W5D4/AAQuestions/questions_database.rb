@@ -66,6 +66,37 @@ class User
     QuestionFollow.followed_questions_for_user_id(id)
   end
 
+  def average_karma
+    authored_ques = self.authored_questions
+    likes_per_question = {}
+    authored_questions.each {|question| likes_per_question[question.id] = question.num_likes}
+    likes = likes_per_question.values
+    likes.sum * 1.00 / likes.length
+  end
+
+  def insert
+    raise "#{self} already in database" if self.id
+    QuestionsDatabase.instance.execute(<<-SQL, self.fname, self.lname)
+      INSERT INTO
+        users (fname, lname)
+      VALUES
+        (?, ?)
+    SQL
+    self.id = QuestionsDatabase.instance.last_insert_row_id
+  end
+
+  def update
+    raise "#{self} not in database" unless self.id
+    QuestionsDatabase.instance.execute(<<-SQL, self.fname, self.lname, self.id)
+      UPDATE
+        users
+      SET
+        fname = ?, lname = ?
+      WHERE
+        id = ?
+    SQL
+  end
+
 end
 
 
@@ -117,6 +148,26 @@ class Question
     QuestionFollow.followers_for_question_id(id)
   end
 
+  def most_followed(n)
+    QuestionFollow.most_followed_questions(n)
+  end
+
+  def likers
+    QuestionLike.likers_for_question_id(id)
+  end
+
+  def num_likes
+    QuestionLike.num_likes_for_question_id(id)
+  end
+
+  def liked_questions 
+    QuestionLike.liked_questions_for_user_id(id)
+  end
+
+  def most_liked(n)
+    QuestionLike.most_liked_questions(n)
+  end
+
 end
 
 
@@ -127,18 +178,21 @@ class QuestionFollow
   def self.most_followed_questions(n)
     questions = QuestionsDatabase.instance.execute(<<-SQL, n)
       SELECT 
-        COUNT(*) AS num_follows
+        *, COUNT(*) AS num_follows
       FROM
         question_follows
       JOIN
-        users
+        questions
       ON
-        users.id = question_follows.user_id
-
-        
-      WHERE
-        question_id = ?
+        questions.id = question_follows.question_id
+      GROUP BY
+        question_id
+      ORDER BY
+        num_follows DESC
+      LIMIT
+        ?
     SQL
+
     questions.map{|question|Question.new(question)}
   end
 
@@ -275,14 +329,70 @@ class Reply
 end
 
 
-class Like
+class QuestionLike
 
   attr_accessor :id, :question_id, :user_id
+
+    def self.most_liked_questions(n)
+    questions = QuestionsDatabase.instance.execute(<<-SQL, n)
+      SELECT 
+        *, COUNT(*) AS num_likes
+      FROM
+        question_likes
+      JOIN
+        questions
+      ON
+        questions.id = question_likes.question_id
+      GROUP BY
+        question_id
+      ORDER BY
+        num_likes DESC
+      LIMIT
+        ?
+    SQL
+
+    questions.map{|question|Question.new(question)}
+  end
+
+  def self.likers_for_question_id(question_id)
+    likers = QuestionsDatabase.instance.execute(<<-SQL, question_id)
+      SELECT * 
+      FROM users
+      JOIN question_likes
+      ON users.id = question_likes.user_id
+      WHERE question_id = ?
+    SQL
+
+    likers.map{|liker|User.new(liker)}
+  end
+
+  def self.num_likes_for_question_id(question_id)
+    likes = QuestionsDatabase.instance.execute(<<-SQL, question_id)
+      SELECT COUNT(*) as num_likes
+      FROM question_likes
+      WHERE question_id = ?
+      GROUP BY question_id
+    SQL
+
+    likes.first['num_likes']
+  end
+
+  def self.liked_questions_for_user_id(user_id)
+    liked = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+      SELECT *
+      FROM question_likes
+      JOIN questions
+      ON questions.id = question_likes.question_id
+      WHERE user_id = ?
+    SQL
+
+    liked.map {|question|Question.new(question)}
+  end
 
   def self.find_by_id(id)
     like_by_id = QuestionsDatabase.instance.execute(<<-SQL, id)
       SELECT * 
-      FROM likes 
+      FROM question_likes 
       WHERE id = ?
     SQL
 
