@@ -1,0 +1,40 @@
+
+
+<form method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="name">Name</label>
+  <input id="name" type="text" name="cat[name]" value="<%= @cat.name %>">
+  <br>
+
+  <label for="sex">Sex</label>
+  <input id="sex" type="radio" name="cat[sex]" <%= @cat.sex == "M" ? "checked" : "" %>> M
+  <input id="sex" type="radio" name="cat[sex]" <%= @cat.sex == "F" ? "checked" : "" %>> F
+  <br>
+
+  <label for="color">Color</label>
+  <select id="color">
+
+    <option value="select">--select a color--</option>
+  
+    <option value="orange"selected>Orange</option>
+
+   <%when @cat.color == "brown"%>
+    <option value="brown"selected>Brown</option>
+
+   <%when @cat.color == "white"%>
+    <option value="white"selected>White</option>
+
+   <%when @cat.color == "black"%>
+    <option value="black"selected>Black</option>
+
+  
+  </select>
+  <br>
+  <label for="birth_date">Birth Date</label>
+  <input id="birth_date" type="date" name="cat[birth_date]" value = "<%= @cat.birth_date %>">
+  <br>
+  <label for="description">Description</label>
+  <input id="description" type="textarea" value = "<%= @cat.description %>">
+  <br>
+
+</form>
