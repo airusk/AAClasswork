@@ -1,0 +1,8 @@
+<h1><%=@post.title%></h1>
+<%=@post.url%>
+<br>
+<%=@post.content%>
+<br>
+<a href="<%=edit_sub_post_url(@post.sub_id,@post)%>">Edit Post</a>
+<br>
+<a href="<%=sub_url(@post.sub_id)%>">Back</a>
