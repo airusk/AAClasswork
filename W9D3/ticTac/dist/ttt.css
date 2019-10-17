@@ -1,0 +1,47 @@
+body {
+  /* display: flex; */
+
+}
+
+body h1 {
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ttt {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 21em;
+}
+
+.ttt > ul {
+  display: flex;
+  flex-wrap: wrap;
+  width: 330px;
+  border: solid black 5px;
+  list-style-type: none;
+  padding-left: 0;
+  margin-right: 20px;
+}
+
+.ttt li {
+  height: 100px;
+  width: 100px;
+  border: solid 5px black;
+  background-color: gray;
+  font-size: 150px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 70px;
+}
+
+.ttt li:hover{
+  background-color: royalblue;
+}
+
+.ttt .toad{
+  background-color: white;
+}

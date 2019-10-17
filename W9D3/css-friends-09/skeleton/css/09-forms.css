@@ -1,0 +1,19 @@
+/* PHASE 9: Forms */
+.thumb {
+  float: left;
+}
+
+.post {
+  float: left;
+  background-color: lightgoldenrodyellow;
+  border: 1px solid black;
+  padding: 20px;
+  margin-left: 19px;
+  width: 80%;
+}
+
+.input {
+  background-color: white;
+  border: 1px dotted palevioletred;
+}
+
