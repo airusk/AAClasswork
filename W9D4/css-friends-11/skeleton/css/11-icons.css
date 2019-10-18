@@ -1,0 +1,30 @@
+/* PHASE 11: Icons */
+[class*="icon-"]{
+  background-image: "../docs/images/sprite.png";
+  background-size: 25px 25px;
+  display: inline-block;
+}
+
+@media only screen and (min-device-pixel-ratio: 2) {
+
+  [class*="icon-"] {
+    background-size: 20px 20px;
+  }
+
+}
+
+.icon-comment{
+
+}
+
+.icon-reblog{
+
+}
+
+.icon-favorite{
+
+}
+
+
+
+
