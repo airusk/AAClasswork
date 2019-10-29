@@ -1,0 +1,45 @@
+html, body, header, nav, h1, a,
+ul, li, strong, main, button, i,
+section, img, div, h2, p, form,
+fieldset, label, input, textarea,
+span, article, footer, time, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: sans-serif;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+  list-style: none;
+}
+
+body{
+    font-family: Fira Code;
+}
+
+.clock{
+    display: flex;
+    justify-content: center;
+}
+
+.clock-content{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 15px;
+    border: darkseagreen dotted 2px;
+    background-color: salmon;
+    width: 500px;
+    font-size: 24px;
+}
+
+.clock-content label{
+    font-weight: 900;
+}
+.clock-content p{
+    font-weight: 500;
+}

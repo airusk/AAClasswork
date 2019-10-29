@@ -16,7 +16,6 @@ class Clock extends React.Component{
 
   
   _tick(){
-    console.log("in _tick");
     // let newDate = new Date();
  
     this.setState({ time: new Date() });
@@ -31,15 +30,19 @@ class Clock extends React.Component{
   }
   
   render(){
-    let hours = this.state.time.getHours();
-    let minutes =  this.state.time.getMinutes();
-    let seconds =  this.state.time.getSeconds();
-    let utcTime = this.state.time.toUTCString();
+    let date = this.state.time.toDateString();
+    let time = this.state.time.toLocaleTimeString();
     return(
-      <div>
-        {/* <h1>{hours}:{minutes}:{seconds}</h1> */}
-        <h1>{utcTime}</h1>
+      <div className="clock">
+        <div className = "clock-content">
+          <label>Date: 
+            <p id="date"> {date} </p>
+          </label>
+          <label>Time: 
+            <p id="time">{time}</p>
+          </label> 
         </div>
+      </div>
     );
   }
 }
