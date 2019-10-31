@@ -171,12 +171,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
   var store = Object(_frontend_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])(); //
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.signup = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["signup"]; //
+  window.signup = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["signup"];
+  window.login = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["login"];
+  window.logout = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["logout"]; //
 
   var root = document.getElementById("root");
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -496,6 +500,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+      debugger;
       return Object.assign({}, _defineProperty({}, action.user.id, action.user));
 
     default:
@@ -555,6 +560,7 @@ var signup = function signup(user) {
   });
 };
 var login = function login(user) {
+  debugger;
   return $.ajax({
     url: "/api/session",
     method: 'POST',

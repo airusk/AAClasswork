@@ -5,7 +5,7 @@ import {
 
 const _nullSession = {
   id: null
-}
+};
 
 export default (state = _nullSession, action) => {
   Object.freeze(state)
@@ -17,4 +17,4 @@ export default (state = _nullSession, action) => {
     default:
       return state;
   }
-}
+};
