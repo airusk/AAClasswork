@@ -11,16 +11,18 @@ class Greeting extends React.Component {
   }
 
   render() {
-    const greeting = this.props.user ? (
+    const greeting = this.props.user ? 
+    (
       <div>
         <h4>Welcome, {this.props.user.username}!</h4>
         <button onClick={this.handleClick}>Log Out</button>
       </div>
-      ) : (
-        <div>
-          Sign Up, Sign In
-        </div>
-      )
+    ) : (
+      <div>
+        
+        Sign Up, Sign In
+      </div>
+    )
     return (
       greeting
     )
